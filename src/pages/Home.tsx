@@ -61,7 +61,7 @@ function SectionShell({
   return (
     <section
       id={id}
-      className={`relative scroll-mt-header overflow-hidden px-4 py-12 sm:px-6 sm:py-20 lg:px-8 lg:py-24 ${className}`}
+      className={`relative scroll-mt-header overflow-hidden px-3 py-10 sm:px-6 sm:py-20 lg:px-8 lg:py-24 ${className}`}
     >
       {beam && (
         <motion.div

@@ -140,7 +140,7 @@ export function ResidentialPlotCategories({
             </p>
           </div>
 
-          <div className="mx-auto mt-8 grid max-w-3xl grid-cols-4 gap-2.5 sm:mt-10 sm:grid-cols-4 sm:gap-3">
+          <div className="mx-auto mt-8 grid max-w-3xl grid-cols-4 gap-1.5 sm:mt-10 sm:gap-3">
             {blocks.letters.map((letter) => (
               <motion.div
                 key={letter}
@@ -150,7 +150,7 @@ export function ResidentialPlotCategories({
                 <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-500 group-hover/block:text-accent-green">
                   Block
                 </span>
-                <span className="mt-1 font-display text-2xl font-bold text-navy-900 dark:text-cream sm:text-3xl">
+                <span className="mt-1 font-display text-xl font-bold text-navy-900 dark:text-cream sm:text-3xl">
                   {letter}
                 </span>
               </motion.div>

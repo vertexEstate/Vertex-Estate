@@ -3,8 +3,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRightIcon, InfoIcon } from 'lucide-react';
 import { Button } from '../components/ui/Button';
-import { WhatsAppInquiryCard } from '../components/contact/WhatsAppInquiryCard';
 import { WhatsAppContactButton } from '../components/ui/WhatsAppContactButton';
+import { HorizonMallUnitCards } from '../components/projects/HorizonMallUnitCards';
 import { whatsAppMessageForProject } from '../lib/whatsapp';
 import {
   horizonHero,
@@ -12,6 +12,8 @@ import {
   horizonQuickHighlights,
   horizonConfiguration,
   horizonPropertyTypes,
+  horizonUnitPicker,
+  horizonPaymentPlan,
   horizonAmenities,
   horizonAmenitiesNote,
   horizonNearbyLandmarks,
@@ -21,6 +23,7 @@ import {
   horizonFaq,
   horizonNavItems,
   HORIZON_MALL_PROMO,
+  HORIZON_MALL_PAYMENT_PLAN,
   HORIZON_PROJECT_PATH,
   type HorizonSectionId,
 } from '../data/horizonMallContent';
@@ -59,7 +62,7 @@ function DataTable({
               {row.map((cell, j) => (
                 <td
                   key={j}
-                  className={`px-4 py-3 text-navy-700 dark:text-cream/85 ${j === 0 ? 'font-semibold' : ''}`}
+                  className={`px-3 py-2.5 text-navy-700 dark:text-cream/85 sm:px-4 sm:py-3 ${j === 0 ? 'font-semibold' : ''}`}
                 >
                   {cell}
                 </td>
@@ -156,8 +159,8 @@ export function HorizonMall() {
   }, [location.hash, scrollToSection]);
 
   return (
-    <div className="min-h-screen bg-cream pt-page pb-page text-navy-900 dark:bg-navy-950 dark:text-cream sm:pt-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen overflow-x-hidden bg-cream pt-page pb-page text-navy-900 dark:bg-navy-950 dark:text-cream sm:pt-28">
+      <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
         {/* Hero */}
         <div className="overflow-hidden rounded-2xl border border-navy-100 bg-white shadow-2xl dark:border-navy-700 dark:bg-navy-900 sm:rounded-[2rem]">
           <div className="grid lg:grid-cols-2">
@@ -189,7 +192,7 @@ export function HorizonMall() {
                   variant="primary"
                   size="lg"
                   className="w-full sm:w-auto"
-                  onClick={() => scrollToSection('inquiry')}
+                  onClick={() => scrollToSection('property-types')}
                 >
                   Inquire now
                   <ArrowRightIcon className="h-5 w-5" />
@@ -292,35 +295,66 @@ export function HorizonMall() {
 
           <HorizonSection
             id="property-types"
-            title={horizonPropertyTypes.title}
+            eyebrow="Units for sale"
+            title={horizonUnitPicker.title}
             subtitle={horizonPropertyTypes.subtitle}
           >
-            <div className="grid gap-6 lg:grid-cols-3">
-              {horizonPropertyTypes.categories.map((cat) => (
-                <div
-                  key={cat.title}
-                  className="rounded-xl border border-navy-100 p-5 dark:border-navy-600"
-                >
-                  <h3 className="font-display text-lg font-bold text-navy-900 dark:text-cream">
-                    {cat.title}
-                  </h3>
-                  <p className="mt-2 text-xs font-bold uppercase tracking-wide text-zinc-500">
-                    {cat.intro}
-                  </p>
-                  <ul className="mt-3 space-y-1.5">
-                    {cat.items.map((item) => (
-                      <li
-                        key={item}
-                        className="flex gap-2 text-sm text-navy-600 dark:text-cream/75"
-                      >
-                        <span className="text-accent-green">✓</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+            <HorizonMallUnitCards />
+
+            <div className="mt-12 border-t border-navy-100 pt-10 dark:border-navy-600">
+              <h3 className="font-display text-lg font-bold text-navy-900 dark:text-cream sm:text-xl">
+                Also suitable for
+              </h3>
+              <div className="mt-5 grid gap-4 lg:grid-cols-3">
+                {horizonPropertyTypes.categories.map((cat) => (
+                  <div
+                    key={cat.title}
+                    className="rounded-xl border border-navy-100 p-4 dark:border-navy-600"
+                  >
+                    <h4 className="text-sm font-bold text-navy-900 dark:text-cream">{cat.title}</h4>
+                    <ul className="mt-2 space-y-1">
+                      {cat.items.slice(0, 4).map((item) => (
+                        <li
+                          key={item}
+                          className="flex gap-2 text-xs text-navy-600 dark:text-cream/70"
+                        >
+                          <span className="text-accent-green">✓</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </div>
+          </HorizonSection>
+
+          <HorizonSection
+            id="payment-plan"
+            eyebrow="Vertex Estate"
+            title={horizonPaymentPlan.title}
+            subtitle={horizonPaymentPlan.subtitle}
+          >
+            <div className="table-responsive overflow-hidden rounded-2xl border border-navy-100 bg-white shadow-xl dark:border-navy-600 dark:bg-navy-900">
+              <img
+                src={HORIZON_MALL_PAYMENT_PLAN}
+                alt={horizonPaymentPlan.imageAlt}
+                className="media-responsive min-h-[200px] w-full object-contain object-left-top sm:object-center"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <ul className="mt-5 space-y-2">
+              {horizonPaymentPlan.notes.map((note) => (
+                <li
+                  key={note}
+                  className="flex gap-2 text-sm leading-relaxed text-navy-600 dark:text-cream/75"
+                >
+                  <span className="text-accent-green">•</span>
+                  {note}
+                </li>
+              ))}
+            </ul>
           </HorizonSection>
 
           <HorizonSection id="amenities" title="Amenities">
@@ -405,13 +439,6 @@ export function HorizonMall() {
                 </span>
               ))}
             </div>
-          </HorizonSection>
-
-          <HorizonSection id="inquiry" title="Get rates on WhatsApp">
-            <WhatsAppInquiryCard
-              title="Ask about Horizon Mall units"
-              subtitle="Shops, corporate offices, or apartments — tell us your budget and preferred size. We send available units and a clear quote."
-            />
           </HorizonSection>
 
           <HorizonSection id="faq" eyebrow="FAQ" title="Frequently asked questions">

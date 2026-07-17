@@ -4,16 +4,18 @@ export const HORIZON_PROJECT_PATH = '/horizon-mall';
 
 export const HORIZON_MALL_PROMO = '/brand/horizon-mall-promo.png';
 
+export const HORIZON_MALL_PAYMENT_PLAN = '/brand/horizon-mall-payment-plan.png';
+
 export type HorizonSectionId =
   | 'overview'
   | 'highlights'
   | 'configuration'
   | 'property-types'
+  | 'payment-plan'
   | 'amenities'
   | 'location'
   | 'investment'
   | 'compliance'
-  | 'inquiry'
   | 'faq';
 
 export type HorizonNavItem = {
@@ -27,11 +29,11 @@ export const horizonNavItems: HorizonNavItem[] = [
   { id: 'highlights', label: 'Highlights' },
   { id: 'configuration', label: 'Configuration', shortLabel: 'Floors' },
   { id: 'property-types', label: 'Property types', shortLabel: 'Units' },
+  { id: 'payment-plan', label: 'Payment plan', shortLabel: 'Payment' },
   { id: 'amenities', label: 'Amenities' },
   { id: 'location', label: 'Nearby', shortLabel: 'Nearby' },
   { id: 'investment', label: 'Why Invest' },
   { id: 'compliance', label: 'Regulatory', shortLabel: 'Regulatory' },
-  { id: 'inquiry', label: 'WhatsApp' },
   { id: 'faq', label: 'FAQ' },
 ];
 
@@ -122,6 +124,103 @@ export const horizonPropertyTypes = {
         'Penthouses',
       ],
     },
+  ],
+};
+
+export type HorizonMallUnit = {
+  id: string;
+  title: string;
+  category: string;
+  sqft: string;
+  finish: string;
+  priceLabel: string;
+  priceNote?: string;
+  highlight: string;
+  badge?: string;
+};
+
+export const horizonMallUnits: HorizonMallUnit[] = [
+  {
+    id: 'office',
+    title: 'Office',
+    category: 'Corporate',
+    sqft: '300 sqft',
+    finish: 'Commercial office space',
+    priceLabel: 'PKR 75 Lac',
+    priceNote: 'From payment plan · 25,000 per sqft',
+    highlight: 'Ideal for IT firms, consultants & corporate HQ',
+    badge: 'Commercial',
+  },
+  {
+    id: 'one-bed',
+    title: 'One Bed Apartment',
+    category: 'Residential',
+    sqft: '484 sqft',
+    finish: 'Fully furnished',
+    priceLabel: 'PKR 96.8 Lac',
+    priceNote: 'From payment plan · 20,000 per sqft',
+    highlight: 'Compact luxury living near NUST & metro',
+    badge: 'Popular',
+  },
+  {
+    id: 'two-bed',
+    title: 'Two Bed Apartment',
+    category: 'Residential',
+    sqft: '1,055 sqft',
+    finish: 'Fully finished',
+    priceLabel: 'PKR 2.11 Crore',
+    priceNote: 'From payment plan · 20,000 per sqft',
+    highlight: 'Family-sized layout with modern finishes',
+    badge: 'Family',
+  },
+  {
+    id: 'three-bed',
+    title: 'Three Bed Apartment',
+    category: 'Residential',
+    sqft: '1,520 sqft',
+    finish: 'Fully finished',
+    priceLabel: 'PKR 3.04 Crore',
+    priceNote: 'From payment plan · 20,000 per sqft',
+    highlight: 'Spacious apartments for premium family living',
+  },
+  {
+    id: 'shop',
+    title: 'Commercial Shop',
+    category: 'Retail',
+    sqft: 'Ground floor outlets',
+    finish: 'High-visibility retail frontage',
+    priceLabel: 'On request',
+    priceNote: 'From 100,000 per sqft · see payment plan',
+    highlight: 'Retail brands, restaurants, pharmacy & boutique',
+    badge: 'Retail',
+  },
+  {
+    id: 'penthouse',
+    title: 'Penthouse',
+    category: 'Luxury',
+    sqft: '3,147 sqft',
+    finish: 'Premium top-floor residence',
+    priceLabel: 'PKR 9.44 Crore',
+    priceNote: 'From payment plan · 30,000 per sqft',
+    highlight: 'Statement penthouse with panoramic views',
+    badge: 'Luxury',
+  },
+];
+
+export const horizonUnitPicker = {
+  title: 'Choose what you want to buy',
+  subtitle:
+    'Offices, shops, and luxury apartments at Horizon Mall — tap a unit to inquire on WhatsApp with payment plan details.',
+};
+
+export const horizonPaymentPlan = {
+  title: 'Payment plan',
+  subtitle: 'Horizon Mall — The Luxury Living · Vertex Estate',
+  imageAlt: 'Horizon Mall official payment plan — offices, apartments, penthouses, and ground floor outlets',
+  notes: [
+    'Payment should be made through Cash, PO, DD, or cross cheque in favor of Horizon Mall or Unique Property Advisor.',
+    '10% discount on lump-sum payment.',
+    'Prices are subject to change without prior notice.',
   ],
 };
 

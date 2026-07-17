@@ -52,7 +52,7 @@ export function ProjectShowcase({ project, index = 0 }: Props) {
             className="relative block shrink-0 overflow-hidden"
             aria-label={`Open ${project.name} project page`}
           >
-            <div className="relative h-56 sm:h-64 lg:h-72">
+            <div className="relative h-44 shrink-0 overflow-hidden sm:h-48 md:h-52 lg:h-56">
               {imgSrc ? (
                 <img
                   src={imgSrc}
@@ -83,8 +83,8 @@ export function ProjectShowcase({ project, index = 0 }: Props) {
               </span>
 
               {/* Amenity strip */}
-              <div className="absolute inset-x-0 bottom-0 z-10 border-t border-white/10 bg-navy-950/85 px-2 py-2.5 backdrop-blur-md sm:px-3 sm:py-3">
-                <div className="grid grid-cols-4 gap-1 sm:gap-2">
+              <div className="absolute inset-x-0 bottom-0 z-10 border-t border-white/10 bg-navy-950/85 px-2 py-2 backdrop-blur-md sm:px-3 sm:py-3">
+                <div className="grid grid-cols-2 gap-1 sm:grid-cols-4 sm:gap-2">
                   {project.highlights.slice(0, 4).map((item, i) => {
                     const Icon = icons[i] ?? MapPinIcon;
                     return (

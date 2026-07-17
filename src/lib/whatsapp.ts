@@ -26,3 +26,9 @@ export function whatsAppMessageForProject(projectName: string) {
   if (!name) return siteConfig.whatsappDefaultMessage;
   return `Hi ${siteConfig.siteName}! I am interested in ${name}. Please share current availability and rates.`;
 }
+
+export function whatsAppMessageForHorizonUnit(unitLabel: string) {
+  const label = unitLabel.trim();
+  if (!label) return whatsAppMessageForProject('Horizon Mall');
+  return `Hi ${siteConfig.siteName}! I want to buy a ${label} at Horizon Mall Islamabad (H-13). Please share availability, payment plan, and current rates.`;
+}
