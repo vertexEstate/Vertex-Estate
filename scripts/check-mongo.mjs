@@ -6,11 +6,13 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { MongoClient } from 'mongodb';
+import { configureMongoDns } from '../server/mongoDns.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
 const uri = process.env.MONGODB_URI || '';
+configureMongoDns(uri);
 const dbName = process.env.MONGODB_DB || 'vertex';
 
 if (!uri.trim()) {

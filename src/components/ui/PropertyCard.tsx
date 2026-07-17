@@ -60,7 +60,7 @@ function PropertyCardInner({ property, onClick }: PropertyCardProps) {
     >
       <div
         style={reduceMotion ? undefined : { transform: 'translateZ(20px)' }}
-        className="relative overflow-hidden rounded-[1.35rem] border border-navy-100/80 bg-white ring-1 ring-transparent transition-shadow duration-300 group-hover:border-gold-500/25 group-hover:shadow-gold-glow-lg group-hover:ring-gold-500/15 dark:border-navy-600 dark:bg-navy-800"
+        className="relative overflow-hidden rounded-2xl border border-navy-100/80 bg-white ring-1 ring-navy-100/50 transition-all duration-300 group-hover:-translate-y-2 group-hover:border-gold-500/30 group-hover:shadow-luxury-card-hover dark:border-navy-700 dark:bg-navy-900 dark:ring-navy-700"
       >
         <div className="relative h-52 overflow-hidden sm:h-64">
           <img
@@ -68,8 +68,8 @@ function PropertyCardInner({ property, onClick }: PropertyCardProps) {
             alt={property.title}
             loading="lazy"
             decoding="async"
-            className={`h-full w-full bg-navy-950 object-contain transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-              reduceMotion ? '' : 'group-hover:scale-[1.03]'
+            className={`h-full w-full bg-navy-950 object-cover transition-transform duration-500 ease-out ${
+              reduceMotion ? '' : 'group-hover:scale-105'
             }`}
           />
           
@@ -84,8 +84,22 @@ function PropertyCardInner({ property, onClick }: PropertyCardProps) {
             </span>
           </div>
           <div className="absolute top-4 left-4 z-20">
-            <span className="px-3 py-1 bg-gold-500 text-navy-900 text-xs font-bold rounded-full uppercase tracking-wider shadow-lg">
-              {property.type}
+            <span
+              className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider shadow-md ${
+                property.status === 'sold'
+                  ? 'bg-zinc-600 text-zinc-200'
+                  : property.status === 'pending'
+                    ? 'bg-amber-500/90 text-black'
+                    : 'bg-accent-green text-white'
+              }`}
+            >
+              {property.status === 'sold'
+                ? 'Sold'
+                : property.status === 'pending'
+                  ? 'Pending'
+                  : property.status === 'available'
+                    ? 'Available'
+                    : property.type}
             </span>
           </div>
           <div className="absolute top-4 right-4 z-20 flex gap-2">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   PhoneIcon,
@@ -6,13 +6,11 @@ import {
   MapPinIcon,
   MessageSquareIcon,
   CalendarIcon,
+  ArrowRightIcon,
 } from 'lucide-react';
-import { Input } from '../components/ui/Input';
-import { Select } from '../components/ui/Select';
-import { Button } from '../components/ui/Button';
 import { siteConfig } from '../config/siteConfig';
 import { loadSiteContact } from '../lib/siteContactCache';
-import { submitContactMessage } from '../lib/submissions';
+import { PlotLeadWizard } from '../components/contact/plotLead/PlotLeadWizard';
 import type { SiteContactOffice, SiteQuickAction } from '../types/siteFiles';
 
 type QuickActionRow = {
@@ -87,17 +85,7 @@ function quickActionsFromFile(raw: SiteQuickAction[]): QuickActionRow[] {
 }
 
 export function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-  });
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [sendError, setSendError] = useState<string | null>(null);
-  const [isSending, setIsSending] = useState(false);
+  const [wizardOpen, setWizardOpen] = useState(true);
   const [resolved, setResolved] = useState({
     offices: defaultOffices,
     quickActions: defaultQuickActions,
@@ -120,89 +108,59 @@ export function Contact() {
     });
   }, []);
 
-  const validate = () => {
-    const newErrors: Record<string, string> = {};
-    if (!formData.name) newErrors.name = 'Name is required';
-    if (!formData.email) newErrors.email = 'Email is required';
-    if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
-    if (!formData.phone) newErrors.phone = 'Phone is required';
-    if (!formData.subject) newErrors.subject = 'Subject is required';
-    if (!formData.message) newErrors.message = 'Message is required';
-    return newErrors;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const newErrors = validate();
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-    setErrors({});
-    setSendError(null);
-    setIsSending(true);
-    const res = await submitContactMessage(formData);
-    setIsSending(false);
-    if (!res.ok) {
-      setSendError(res.error);
-      return;
-    }
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
-      });
-      setIsSubmitted(false);
-    }, 3000);
-  };
-
   const { offices, quickActions, mapSrc } = resolved;
 
   return (
     <div className="min-h-screen bg-cream pt-page pb-page dark:bg-navy-900">
+      <PlotLeadWizard open={wizardOpen} onClose={() => setWizardOpen(false)} />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-12"
         >
           <h1 className="text-4xl md:text-5xl font-display font-bold text-navy-900 dark:text-cream mb-4">
             Get in Touch
           </h1>
           <p className="text-xl text-navy-600 dark:text-navy-400 max-w-2xl mx-auto">
-            Have questions? We're here to help. Reach out to us anytime.
+            Tell us what you&apos;re looking for — or reach us directly below.
           </p>
         </motion.div>
+
+        {!wizardOpen && (
+          <motion.button
+            type="button"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            onClick={() => setWizardOpen(true)}
+            className="mx-auto mb-12 flex w-full max-w-xl flex-col items-center gap-3 rounded-[1.75rem] border border-gold-500/30 bg-gradient-to-br from-white to-cream/90 p-8 text-center shadow-xl transition hover:border-gold-500/50 hover:shadow-gold-glow dark:from-navy-800 dark:to-navy-900 dark:border-gold-500/25"
+          >
+            <span className="text-xs font-bold uppercase tracking-[0.22em] text-gold-600 dark:text-gold-400">
+              Plot inquiry
+            </span>
+            <span className="font-display text-2xl font-bold text-navy-900 dark:text-cream">
+              Find your perfect plot
+            </span>
+            <span className="text-sm text-navy-600 dark:text-cream/70">
+              9 quick questions · WhatsApp follow-up · Free site visit
+            </span>
+            <span className="mt-2 inline-flex items-center gap-2 rounded-xl bg-gradient-to-b from-gold-300 via-gold-500 to-gold-600 px-6 py-3 text-sm font-bold text-navy-900 shadow-btn-primary">
+              Start now
+              <ArrowRightIcon className="h-4 w-4" aria-hidden />
+            </span>
+          </motion.button>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {quickActions.map((action, index) => (
             <motion.a
               key={`${action.label}-${action.href}`}
               href={action.href}
-              initial={{
-                opacity: 0,
-                y: 20,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                delay: index * 0.1,
-              }}
-              whileHover={{
-                y: -4,
-              }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -4 }}
               className="block"
             >
               <div
@@ -218,227 +176,64 @@ export function Contact() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
           <motion.div
-            initial={{
-              opacity: 0,
-              x: -20,
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-            }}
-            className="bg-white dark:bg-navy-800 rounded-2xl p-8 shadow-xl"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="bg-white dark:bg-navy-800 rounded-2xl overflow-hidden shadow-xl h-96 lg:h-auto lg:min-h-[420px]"
           >
-            <h2 className="text-2xl font-display font-bold text-navy-900 dark:text-cream mb-6">
-              Send us a Message
-            </h2>
-            {isSubmitted ? (
-              <div className="text-center py-12">
-                <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg
-                    className="w-8 h-8 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-navy-900 dark:text-cream mb-2">
-                  Message Sent!
-                </h3>
-                <p className="text-navy-600 dark:text-navy-400">
-                  We'll get back to you as soon as possible.
-                </p>
-                {import.meta.env.PROD && !siteConfig.apiBaseUrl && (
-                  <p className="mt-4 text-sm text-navy-500 dark:text-navy-400">
-                    API URL is not configured yet. Your message was queued in this
-                    browser (see localStorage key <code className="text-gold-500">vertex-lead-queue</code>
-                    ) until your backend is connected.
-                  </p>
-                )}
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {sendError && (
-                  <p className="rounded-lg border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-700 dark:text-red-300">
-                    {sendError}
-                  </p>
-                )}
-                <Input
-                  label="Full Name"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      name: e.target.value,
-                    })
-                  }
-                  error={errors.name}
-                />
-
-                <Input
-                  label="Email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      email: e.target.value,
-                    })
-                  }
-                  error={errors.email}
-                />
-
-                <Input
-                  label="Phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      phone: e.target.value,
-                    })
-                  }
-                  error={errors.phone}
-                />
-
-                <Select
-                  label="Subject"
-                  options={[
-                    {
-                      value: '',
-                      label: 'Select a subject',
-                    },
-                    {
-                      value: 'buying',
-                      label: 'Buying Property',
-                    },
-                    {
-                      value: 'selling',
-                      label: 'Selling Property',
-                    },
-                    {
-                      value: 'renting',
-                      label: 'Renting Property',
-                    },
-                    {
-                      value: 'general',
-                      label: 'General Inquiry',
-                    },
-                  ]}
-                  value={formData.subject}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      subject: e.target.value,
-                    })
-                  }
-                  error={errors.subject}
-                />
-
-                <div>
-                  <label className="block text-sm font-medium text-navy-700 dark:text-cream mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    rows={5}
-                    value={formData.message}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        message: e.target.value,
-                      })
-                    }
-                    className={`w-full px-4 py-3 rounded-lg border-2 border-navy-200 dark:border-navy-600 bg-white dark:bg-navy-800 text-navy-900 dark:text-cream placeholder-navy-400 dark:placeholder-navy-500 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 outline-none transition-all ${errors.message ? 'border-red-500' : ''}`}
-                  />
-
-                  {errors.message && (
-                    <p className="mt-1 text-sm text-red-500">{errors.message}</p>
-                  )}
-                </div>
-                <Button
-                  type="submit"
-                  variant="primary"
-                  className="w-full"
-                  size="lg"
-                  disabled={isSending}
-                >
-                  {isSending ? 'Sending…' : 'Send Message'}
-                </Button>
-              </form>
-            )}
+            <iframe
+              src={mapSrc}
+              width="100%"
+              height="100%"
+              style={{ border: 0, minHeight: '24rem' }}
+              allowFullScreen
+              loading="lazy"
+              title="Office Location"
+            />
           </motion.div>
 
           <motion.div
-            initial={{
-              opacity: 0,
-              x: 20,
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-            }}
-            className="space-y-8"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="bg-white dark:bg-navy-800 rounded-2xl p-8 shadow-xl"
           >
-            <div className="bg-white dark:bg-navy-800 rounded-2xl overflow-hidden shadow-xl h-96">
-              <iframe
-                src={mapSrc}
-                width="100%"
-                height="100%"
-                style={{
-                  border: 0,
-                }}
-                allowFullScreen
-                loading="lazy"
-                title="Office Location"
-              />
-            </div>
-
-            <div className="bg-white dark:bg-navy-800 rounded-2xl p-8 shadow-xl">
-              <h3 className="text-xl font-display font-bold text-navy-900 dark:text-cream mb-6">
-                Office Locations
-              </h3>
-              <div className="space-y-6">
-                {offices.map((office, index) => (
-                  <div
-                    key={`${office.city}-${index}`}
-                    className="pb-6 border-b border-navy-200 dark:border-navy-700 last:border-0 last:pb-0"
-                  >
-                    <h4 className="text-lg font-bold text-navy-900 dark:text-cream mb-3">
-                      {office.city}
-                    </h4>
-                    <div className="space-y-2 text-navy-600 dark:text-navy-400">
-                      <div className="flex items-start gap-2">
-                        <MapPinIcon className="w-5 h-5 text-gold-500 flex-shrink-0 mt-0.5" />
-                        <span>{office.address}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <PhoneIcon className="w-5 h-5 text-gold-500" />
-                        <a
-                          href={`tel:${office.phone.replace(/\s/g, '')}`}
-                          className="hover:text-gold-500 transition-colors"
-                        >
-                          {office.phone}
-                        </a>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MailIcon className="w-5 h-5 text-gold-500" />
-                        <a
-                          href={`mailto:${office.email}`}
-                          className="hover:text-gold-500 transition-colors"
-                        >
-                          {office.email}
-                        </a>
-                      </div>
+            <h3 className="text-xl font-display font-bold text-navy-900 dark:text-cream mb-6">
+              Office Locations
+            </h3>
+            <div className="space-y-6">
+              {offices.map((office, index) => (
+                <div
+                  key={`${office.city}-${index}`}
+                  className="pb-6 border-b border-navy-200 dark:border-navy-700 last:border-0 last:pb-0"
+                >
+                  <h4 className="text-lg font-bold text-navy-900 dark:text-cream mb-3">
+                    {office.city}
+                  </h4>
+                  <div className="space-y-2 text-navy-600 dark:text-navy-400">
+                    <div className="flex items-start gap-2">
+                      <MapPinIcon className="w-5 h-5 text-gold-500 flex-shrink-0 mt-0.5" />
+                      <span>{office.address}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <PhoneIcon className="w-5 h-5 text-gold-500" />
+                      <a
+                        href={`tel:${office.phone.replace(/\s/g, '')}`}
+                        className="hover:text-gold-500 transition-colors"
+                      >
+                        {office.phone}
+                      </a>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MailIcon className="w-5 h-5 text-gold-500" />
+                      <a
+                        href={`mailto:${office.email}`}
+                        className="hover:text-gold-500 transition-colors"
+                      >
+                        {office.email}
+                      </a>
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </motion.div>
         </div>

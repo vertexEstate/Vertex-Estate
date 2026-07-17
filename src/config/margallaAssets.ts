@@ -9,6 +9,9 @@ export const MARGALLA_HERO_FALLBACK = VERTEX_BRAND_PROMO;
 /** Official-style master plan layout (blocks, roads, plot sizes) */
 export const MARGALLA_MASTER_PLAN_IMAGE = '/brand/margalla-orchards-master-plan.png';
 
+/** DHA Islamabad-Rawalpindi official emblem */
+export const DHA_ISLAMABAD_LOGO = '/brand/dha-islamabad-rawalpindi-logo.png';
+
 export const margallaMasterPlanMap = {
   title: 'DHA Margalla Orchards map and master plan',
   subtitle:

@@ -8,16 +8,19 @@ import { Categories } from '../components/home/Categories';
 import { Stats } from '../components/home/Stats';
 import { CTA } from '../components/home/CTA';
 import { ProjectGallery } from '../components/home/ProjectGallery';
+import { PremiumVideoPreview } from '../components/home/PremiumVideoPreview';
 import { LocationShowcase } from '../components/home/LocationShowcase';
 import { MargallaMasterPlanMap } from '../components/margalla/MargallaMasterPlanMap';
-import { MargallaPromoShowcase } from '../components/margalla/MargallaPromoShowcase';
+import { FeaturedProjects } from '../components/projects/FeaturedProjects';
 import { WhatsAppInquiryCard } from '../components/contact/WhatsAppInquiryCard';
 import { AmenitiesShowcase } from '../components/home/AmenitiesShowcase';
+import { WhyChooseVertex } from '../components/home/WhyChooseVertex';
+import { InvestmentBenefits } from '../components/home/InvestmentBenefits';
+import { MasterPlanOverview } from '../components/margalla/MasterPlanOverview';
+import { HorizonMallOverview } from '../components/projects/HorizonMallOverview';
+import { HomeFaq } from '../components/home/HomeFaq';
+import { ResidentialPlotCategories } from '../components/margalla/ResidentialPlotCategories';
 import { SectionHeading } from '../components/ui/SectionHeading';
-
-const FeaturedSlider = lazy(() =>
-  import('../components/home/FeaturedSlider').then((m) => ({ default: m.FeaturedSlider }))
-);
 const Testimonials = lazy(() =>
   import('../components/home/Testimonials').then((m) => ({ default: m.Testimonials }))
 );
@@ -79,7 +82,7 @@ function SectionShell({
           }}
         />
       )}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_45%_at_50%_0%,rgba(212,255,63,0.05),transparent_62%)] dark:bg-[radial-gradient(ellipse_55%_45%_at_50%_0%,rgba(212,255,63,0.04),transparent_62%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_45%_at_50%_0%,rgba(0,188,254,0.06),transparent_62%)]" />
       <div className="relative z-[2]">{children}</div>
     </section>
   );
@@ -125,7 +128,7 @@ function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   return (
     <motion.div
-      className="fixed left-0 right-0 top-0 z-[95] h-[3px] origin-left bg-gradient-to-r from-gold-300 via-gold-500 to-gold-400 shadow-[0_0_22px_rgba(212,255,63,0.5)]"
+      className="fixed left-0 right-0 top-0 z-[95] h-px origin-left bg-white/30"
       style={{ scaleX: scrollYProgress, willChange: 'transform' }}
       aria-hidden
     />
@@ -173,7 +176,7 @@ export function Home() {
   }, [location.hash]);
 
   return (
-    <main className="relative isolate overflow-x-hidden bg-gradient-to-b from-cream via-[#f6f4ef] to-cream text-navy-900 dark:from-navy-900 dark:via-[#050a14] dark:to-navy-900 dark:text-cream">
+    <main className="relative isolate overflow-x-hidden bg-cream text-charcoal dark:diyweb-mesh dark:text-zinc-100">
       <AmbientBackdrop active={!reduceMotion} />
       <ScrollProgress />
 
@@ -183,16 +186,104 @@ export function Home() {
         <SectionShell
           beam
           id="highlights"
-          className="border-t border-navy-100/80 bg-white dark:border-navy-700 dark:bg-navy-900"
+          className="border-t border-navy-100/60 bg-white dark:border-navy-800 dark:bg-navy-900"
         >
           <div className="relative mx-auto max-w-7xl">
             <SectionHeading
-              eyebrow="DHA Margalla Orchards"
-              title="Park Road living with Margalla Hills views"
-              subtitle="A gated DHA society opposite COMSATS University. Secure investment, wide roads, and plot sizes for every family budget."
+              eyebrow="Our projects"
+              title="Premium developments in Islamabad"
+              subtitle="DHA-supervised residential living at Margalla Orchards and commercial retail investment at Horizon Mall — both backed by Vertex Estate."
             />
             <Reveal className="mt-10 sm:mt-12">
-              <MargallaPromoShowcase />
+              <FeaturedProjects />
+            </Reveal>
+          </div>
+        </SectionShell>
+
+        <SectionShell
+          beam
+          id="video-preview"
+          className="border-y border-navy-100/60 bg-black dark:border-navy-800"
+        >
+          <div className="relative mx-auto max-w-7xl [&_h2_span]:text-white [&_p]:text-zinc-400">
+            <SectionHeading
+              eyebrow="Experience Vertex"
+              title="See our projects in motion"
+              subtitle="A silent cinematic preview of DHA Margalla Orchards and Horizon Mall — premium real estate in Islamabad."
+            />
+            <Reveal className="mt-10 sm:mt-12">
+              <PremiumVideoPreview />
+            </Reveal>
+          </div>
+        </SectionShell>
+
+        <SectionShell id="why-vertex" className="bg-cream dark:bg-navy-950">
+          <div className="relative mx-auto max-w-7xl">
+            <SectionHeading
+              eyebrow="Why Vertex Estate"
+              title="A luxury experience you can trust"
+              subtitle="We combine international-grade service with deep local expertise across Islamabad's premium developments."
+            />
+            <Reveal className="mt-12 sm:mt-14">
+              <WhyChooseVertex />
+            </Reveal>
+          </div>
+        </SectionShell>
+
+        <SectionShell id="investment" className="border-y border-navy-100/60 bg-white dark:border-navy-800 dark:bg-navy-900">
+          <div className="relative mx-auto max-w-7xl">
+            <SectionHeading
+              eyebrow="Investment benefits"
+              title="Built for lasting value"
+              subtitle="Strategic locations, flexible plans, and transparent guidance for buyers and investors alike."
+            />
+            <Reveal className="mt-12 sm:mt-14">
+              <InvestmentBenefits />
+            </Reveal>
+          </div>
+        </SectionShell>
+
+        <SectionShell
+          beam
+          pattern
+          id="plots"
+          className="border-y border-navy-100/60 bg-cream dark:border-navy-800 dark:bg-navy-950"
+        >
+          <div className="relative mx-auto max-w-7xl">
+            <SectionHeading
+              eyebrow="Residential plot categories"
+              title="Plot sizes at DHA Margalla Orchard"
+              subtitle="DHA Margalla Orchard offers multiple residential plot categories to accommodate varying family sizes and investment objectives."
+            />
+            <Reveal className="mt-10 sm:mt-12">
+              <ResidentialPlotCategories showIntro={false} />
+            </Reveal>
+            <Reveal className="mt-10 flex justify-center sm:mt-12">
+              <Button
+                variant="outline"
+                className="shrink-0 bg-white/90 backdrop-blur-sm dark:bg-navy-900/70"
+                onClick={() => navigate('/listings')}
+              >
+                View all listings
+                <ArrowRightIcon className="h-4 w-4" aria-hidden />
+              </Button>
+            </Reveal>
+          </div>
+        </SectionShell>
+
+        <SectionShell id="master-plan" className="bg-white dark:bg-navy-900">
+          <div className="relative mx-auto max-w-7xl">
+            <SectionHeading
+              eyebrow="Master plan"
+              title="A vision carefully designed for future generations"
+              subtitle="DHA Margalla Orchard spans approximately 8,380 Kanals of thoughtfully planned land in Islamabad's Zone-IV. Every element of the master plan has been designed under DHA planning standards, ensuring an organized, sustainable, and future-ready community."
+            />
+            <Reveal className="mt-12 sm:mt-14">
+              <MasterPlanOverview showIntro={false} />
+            </Reveal>
+
+            <Reveal className="mt-12 sm:mt-14 lg:mt-16">
+              <HorizonMallOverview />
             </Reveal>
           </div>
         </SectionShell>
@@ -216,7 +307,7 @@ export function Home() {
 
         <SectionShell
           beam
-          id="master-plan"
+          id="master-plan-map"
           className="border-y border-navy-100/80 bg-gradient-to-b from-white to-cream dark:border-navy-700 dark:from-navy-900 dark:to-navy-950"
         >
           <div className="relative mx-auto max-w-7xl">
@@ -236,7 +327,7 @@ export function Home() {
           id="location"
           className="bg-cream dark:bg-navy-950"
         >
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_42%_at_50%_-8%,rgba(212,255,63,0.1),transparent_58%)] dark:bg-[radial-gradient(ellipse_70%_42%_at_50%_-8%,rgba(212,255,63,0.07),transparent_58%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_42%_at_50%_-8%,rgba(201,162,39,0.08),transparent_58%)]" />
           <div className="relative mx-auto max-w-7xl">
             <SectionHeading
               eyebrow="Park Road, Islamabad"
@@ -254,12 +345,12 @@ export function Home() {
           id="pricing"
           className="border-t border-navy-100/70 bg-cream/90 dark:border-white/[0.06] dark:bg-navy-950/90"
         >
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_42%_at_50%_-8%,rgba(212,255,63,0.08),transparent_58%)] dark:bg-[radial-gradient(ellipse_70%_42%_at_50%_-8%,rgba(212,255,63,0.06),transparent_58%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_42%_at_50%_-8%,rgba(201,162,39,0.06),transparent_58%)]" />
           <div className="relative mx-auto max-w-7xl">
             <SectionHeading
-              eyebrow="Get in touch"
-              title="Ask about plots on WhatsApp"
-              subtitle="10 Marla, 14 Marla, and 1 Kanal plots with DHA planning. Our team replies with today’s availability and a clear quote."
+              eyebrow="Contact us"
+              title="Speak with a property consultant"
+              subtitle="10 Marla, 14 Marla, and 1 Kanal plots with DHA planning. Our team replies with today's availability and a clear quote."
             />
             <Reveal className="mt-12 sm:mt-14 lg:mt-16">
               <WhatsAppInquiryCard />
@@ -270,47 +361,8 @@ export function Home() {
         <SectionShell
           beam
           pattern
-          id="plots"
-          className="border-y border-navy-100/80 bg-white/90 dark:border-navy-700/80 dark:bg-navy-800/95"
-        >
-          <div className="pointer-events-none absolute inset-0 opacity-[0.4] dark:opacity-25">
-            <div className="absolute right-0 top-0 h-[480px] w-[480px] translate-x-1/4 -translate-y-1/4 rounded-full bg-gold-500/[0.1] blur-3xl" />
-            <div className="absolute bottom-0 left-0 h-[360px] w-[360px] -translate-x-1/3 translate-y-1/4 rounded-full bg-navy-500/[0.06] blur-3xl dark:bg-gold-600/[0.05]" />
-          </div>
-          <div className="relative mx-auto max-w-7xl">
-            <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-              <div className="max-w-2xl">
-                <SectionHeading
-                  eyebrow="Available plots"
-                  title="Residential and commercial inventory"
-                  subtitle="Browse listings at Margalla Orchards and nearby developments. Each card shows photos, plot size, and location."
-                  align="left"
-                />
-              </div>
-              <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
-                <Button
-                  variant="outline"
-                  className="shrink-0 bg-white/90 backdrop-blur-sm dark:bg-navy-900/70"
-                  onClick={() => navigate('/listings')}
-                >
-                  View all listings
-                  <ArrowRightIcon className="h-4 w-4" aria-hidden />
-                </Button>
-              </motion.div>
-            </div>
-            <Reveal className="mt-12 sm:mt-14 lg:mt-16">
-              <Suspense fallback={<SectionDeferredFallback />}>
-                <FeaturedSlider />
-              </Suspense>
-            </Reveal>
-          </div>
-        </SectionShell>
-
-        <SectionShell
-          beam
-          pattern
           id="amenities"
-          className="bg-gradient-to-b from-cream to-[#f3f1eb] dark:from-navy-900 dark:to-navy-950"
+          className="bg-cream dark:bg-navy-950"
         >
           <div className="relative mx-auto max-w-7xl">
             <SectionHeading
@@ -367,14 +419,14 @@ export function Home() {
         <SectionShell
           beam
           pattern
-          id="faq"
-          className="border-y border-navy-100/80 bg-white/90 dark:border-navy-700/80 dark:bg-navy-800/95"
+          id="testimonials"
+          className="border-y border-navy-100/60 bg-white dark:border-navy-800 dark:bg-navy-900"
         >
           <div className="relative mx-auto max-w-7xl">
             <SectionHeading
               eyebrow="Client stories"
               title="What our clients say"
-              subtitle="Honest words from people who trusted Vertex Estate with one of life’s biggest decisions."
+              subtitle="Honest words from people who trusted Vertex Estate with one of life's biggest decisions."
             />
             <Reveal className="mt-12 sm:mt-14 lg:mt-16">
               <Suspense fallback={<SectionDeferredFallback />}>
@@ -384,12 +436,25 @@ export function Home() {
           </div>
         </SectionShell>
 
-        <SectionShell className="bg-gradient-to-b from-cream to-[#ebe8e0] pb-20 dark:from-navy-900 dark:to-navy-950 sm:pb-24 lg:pb-28">
+        <SectionShell id="site-visit" className="bg-cream pb-12 dark:bg-navy-950 sm:pb-16">
           <Reveal>
             <div className="relative mx-auto max-w-7xl">
               <CTA />
             </div>
           </Reveal>
+        </SectionShell>
+
+        <SectionShell id="faq" className="border-t border-navy-100/60 bg-white dark:border-navy-800 dark:bg-navy-900">
+          <div className="relative mx-auto max-w-7xl">
+            <SectionHeading
+              eyebrow="FAQ"
+              title="Frequently asked questions"
+              subtitle="Everything you need to know about buying at DHA Margalla Orchards with Vertex Estate."
+            />
+            <Reveal className="mt-12 sm:mt-14">
+              <HomeFaq />
+            </Reveal>
+          </div>
         </SectionShell>
       </div>
 
@@ -403,7 +468,7 @@ export function Home() {
             transition={{ type: 'spring', stiffness: 420, damping: 28 }}
             whileHover={{ scale: 1.06, y: -2 }}
             whileTap={{ scale: 0.94 }}
-            className="inset-fab-above-chat fixed z-[55] flex h-11 w-11 items-center justify-center rounded-full border border-gold-500/45 bg-navy-900 text-gold-400 shadow-xl shadow-black/35 transition-colors hover:bg-navy-800 hover:text-gold-300 sm:h-12 sm:w-12 dark:bg-navy-800 dark:hover:bg-navy-700"
+            className="inset-fab-above-chat fixed z-[55] flex h-11 w-11 items-center justify-center rounded-full border border-gold-500/40 bg-navy-800 text-gold-400 shadow-xl shadow-black/25 transition-colors hover:bg-navy-700 hover:text-gold-300 sm:h-12 sm:w-12"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             aria-label="Back to top"
           >

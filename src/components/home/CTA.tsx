@@ -35,7 +35,7 @@ export function CTA() {
           className="h-full min-h-[280px] w-full object-contain object-center bg-navy-950 sm:min-h-[320px]"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-900/88 to-navy-900/75" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_50%,rgba(212,255,63,0.12),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_50%,rgba(201,162,39,0.1),transparent_50%)]" />
       </div>
 
       <div className="pointer-events-none absolute inset-5 z-[11] rounded-[1.2rem] border border-white/15 sm:inset-7 sm:rounded-[1.35rem]" />

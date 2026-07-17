@@ -73,16 +73,20 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-navy-900 pb-[calc(2rem+env(safe-area-inset-bottom,0px))] pt-12 text-cream dark:bg-navy-950 sm:pt-16 sm:pb-8">
+    <footer className="border-t border-white/[0.06] bg-navy-950 pb-[calc(2rem+env(safe-area-inset-bottom,0px))] pt-12 text-zinc-100 sm:pt-16 sm:pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div>
             <div className="mb-6">
               <BrandMark size="lg" tone="dark" />
             </div>
-            <p className="text-navy-300 mb-6">
-              Your trusted partner in finding the perfect property. Luxury, trust, and modern
-              technology combined.
+            <p className="mb-4 leading-relaxed text-zinc-400">
+              Premium real estate across Islamabad — transparent guidance, verified projects,
+              and a team built to deliver.
+            </p>
+            <p className="mb-6 text-sm text-stone">
+              <span className="font-semibold text-zinc-400">Office · </span>
+              {siteConfig.vertexOfficeAddress}
             </p>
             <div className="flex flex-wrap gap-3">
               {[
@@ -99,7 +103,7 @@ export function Footer() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={label}
-                    className="p-2 bg-navy-800 rounded-lg hover:bg-gold-500 hover:text-navy-900 transition-colors"
+                    className="p-2 rounded-lg bg-navy-900 border border-white/[0.08] hover:bg-gold-500/15 hover:text-gold-400 hover:border-gold-500/30 transition-colors"
                   >
                     <Icon className="w-5 h-5" />
                   </a>

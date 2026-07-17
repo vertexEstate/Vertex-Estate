@@ -96,6 +96,9 @@ export const siteConfig = {
   apiConciergePath:
     (import.meta.env.VITE_API_CONCIERGE_PATH as string | undefined) || '/leads/concierge',
 
+  apiPlotLeadPath:
+    (import.meta.env.VITE_API_PLOT_LEAD_PATH as string | undefined) || '/leads/plot-inquiry',
+
   apiNewsletterPath:
     (import.meta.env.VITE_API_NEWSLETTER_PATH as string | undefined) || '/leads/newsletter',
 

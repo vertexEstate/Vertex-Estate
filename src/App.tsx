@@ -20,6 +20,7 @@ import { PropertyDetails } from './pages/PropertyDetails';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
 import { MargallaOrchards } from './pages/MargallaOrchards';
+import { HorizonMall } from './pages/HorizonMall';
 import { Dashboard } from './pages/Dashboard';
 import { EstateOwnerView } from './pages/EstateOwnerView';
 import { siteConfig } from './config/siteConfig';
@@ -83,6 +84,14 @@ function AnimatedRoutes() {
           element={
           <PageTransition>
               <MargallaOrchards />
+            </PageTransition>
+          } />
+
+        <Route
+          path="/horizon-mall"
+          element={
+          <PageTransition>
+              <HorizonMall />
             </PageTransition>
           } />
         
@@ -157,7 +166,7 @@ export function App() {
               {isLoading && !comingSoonActive && (
                 <LoadingScreen onComplete={() => setIsLoading(false)} />
               )}
-              <div className="relative min-h-screen bg-cream text-navy-900 transition-colors duration-200 dark:bg-navy-900 dark:text-cream">
+              <div className="relative min-h-screen bg-cream text-charcoal transition-colors duration-200 dark:bg-navy-950 dark:text-zinc-100">
                 <ParticlesBackground />
                 <div className="relative z-10">
                   <Navbar />

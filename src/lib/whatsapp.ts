@@ -20,3 +20,9 @@ export function whatsAppMessageForProperty(title?: string) {
   if (!title?.trim()) return siteConfig.whatsappDefaultMessage;
   return `Hi ${siteConfig.siteName}! I saw "${title}" on your website and would like more details.`;
 }
+
+export function whatsAppMessageForProject(projectName: string) {
+  const name = projectName.trim();
+  if (!name) return siteConfig.whatsappDefaultMessage;
+  return `Hi ${siteConfig.siteName}! I am interested in ${name}. Please share current availability and rates.`;
+}

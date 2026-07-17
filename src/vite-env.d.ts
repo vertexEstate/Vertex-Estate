@@ -32,6 +32,10 @@ interface ImportMetaEnv {
   readonly VITE_API_CONTACT_PATH?: string;
   /** POST path for home concierge / multi-step form. Default /leads/concierge */
   readonly VITE_API_CONCIERGE_PATH?: string;
+  /** POST path for plot lead wizard. Default /leads/plot-inquiry */
+  readonly VITE_API_PLOT_LEAD_PATH?: string;
+  /** Google Ads conversion send_to (AW-XXXXX/label) for plot lead submits. */
+  readonly VITE_GOOGLE_ADS_CONVERSION_SEND_TO?: string;
   /** POST path for footer newsletter. Default /leads/newsletter */
   readonly VITE_API_NEWSLETTER_PATH?: string;
   /** POST path for coming-soon waitlist. Default /leads/launch-interest */

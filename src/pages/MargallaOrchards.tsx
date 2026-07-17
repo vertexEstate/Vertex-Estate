@@ -6,6 +6,8 @@ import { MargallaSectionNav, MargallaSection } from '../components/margalla/Marg
 import { MargallaFaqAccordion } from '../components/margalla/MargallaFaqAccordion';
 import { MargallaMasterPlanMap } from '../components/margalla/MargallaMasterPlanMap';
 import { MargallaPromoShowcase } from '../components/margalla/MargallaPromoShowcase';
+import { MasterPlanOverview } from '../components/margalla/MasterPlanOverview';
+import { ResidentialPlotCategories } from '../components/margalla/ResidentialPlotCategories';
 import { WhatsAppInquiryCard } from '../components/contact/WhatsAppInquiryCard';
 import { WhatsAppContactButton } from '../components/ui/WhatsAppContactButton';
 import { whatsAppMessageForPlot } from '../lib/whatsapp';
@@ -16,6 +18,7 @@ import {
   margallaLocation,
   margallaNoc,
   margallaMasterPlan,
+  margallaPlotCategories,
   margallaAmenities,
   margallaCommercial,
   margallaPlotInquiry,
@@ -313,23 +316,11 @@ export function MargallaOrchards() {
               title={margallaMasterPlan.title}
               subtitle={margallaMasterPlan.subtitle}
             >
-              <MargallaMasterPlanMap showProjectLink={false} className="mb-10" />
-
-              <div className="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-                {margallaMasterPlan.stats.map((s) => (
-                  <div
-                    key={s.label}
-                    className="rounded-xl border border-navy-100 bg-cream p-4 text-center dark:border-navy-600 dark:bg-navy-900"
-                  >
-                    <p className="font-display text-2xl font-bold text-gold-600 dark:text-gold-400">
-                      {s.value}
-                    </p>
-                    <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-navy-500 dark:text-cream/60">
-                      {s.label}
-                    </p>
-                  </div>
-                ))}
+              <MasterPlanOverview />
+              <div className="mt-12 sm:mt-14">
+                <MargallaMasterPlanMap showProjectLink={false} className="mb-10" />
               </div>
+
               <ul className="mb-8 grid gap-2 sm:grid-cols-2">
                 {margallaMasterPlan.features.map((f) => (
                   <li key={f} className="flex gap-2 text-sm text-navy-700 dark:text-cream/80">
@@ -352,6 +343,14 @@ export function MargallaOrchards() {
                   </div>
                 ))}
               </div>
+            </MargallaSection>
+
+            <MargallaSection
+              id="plot-categories"
+              eyebrow={margallaPlotCategories.eyebrow}
+              title={margallaPlotCategories.title}
+            >
+              <ResidentialPlotCategories />
             </MargallaSection>
 
             <MargallaSection id="amenities" title="Facilities & amenities">

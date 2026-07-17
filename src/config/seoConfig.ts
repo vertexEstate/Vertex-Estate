@@ -108,6 +108,13 @@ export const staticRouteSeo: Record<
     keywords:
       'DHA Margalla Orchards, Margalla Orchards Islamabad, Park Road plots, DHA housing society',
   },
+  '/horizon-mall': {
+    title: 'Horizon Mall Islamabad: H-13 shops, offices & apartments',
+    description:
+      'Horizon Mall on Main Srinagar Highway (H-13), Islamabad — mixed-use shops, corporate offices, and luxury apartments near NUST. Floor plans, amenities, and WhatsApp inquiries.',
+    keywords:
+      'Horizon Mall Islamabad, H-13 Srinagar Highway, mixed-use Islamabad, NUST commercial property',
+  },
 };
 
 export function getSeoForPath(pathname: string): PageSeoInput {

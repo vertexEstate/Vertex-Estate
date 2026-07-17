@@ -8,6 +8,7 @@ export type MargallaSectionId =
   | 'location'
   | 'noc'
   | 'master-plan'
+  | 'plot-categories'
   | 'amenities'
   | 'commercial'
   | 'pricing'
@@ -27,6 +28,7 @@ export const margallaNavItems: MargallaNavItem[] = [
   { id: 'location', label: 'Location' },
   { id: 'noc', label: 'NOC and legal' },
   { id: 'master-plan', label: 'Master Plan' },
+  { id: 'plot-categories', label: 'Plot categories' },
   { id: 'amenities', label: 'Amenities' },
   { id: 'commercial', label: 'Commercial' },
   { id: 'pricing', label: 'WhatsApp' },
@@ -117,12 +119,12 @@ export const margallaNoc = {
 export const margallaMasterPlan = {
   title: 'DHA Margalla Orchards map and master plan',
   subtitle:
-    'Download the full map to see every block, plot size, road, park, and commercial zone across 8,402+ kanals.',
+    'Download the full map to see every block, plot size, road, park, and commercial zone across 8,380 kanals.',
   stats: [
-    { value: '8,402+', label: 'Total kanals' },
-    { value: '4,013+', label: 'Residential plots' },
+    { value: '8,380', label: 'Total kanals' },
+    { value: '4,781', label: 'Residential plots' },
     { value: 'A–H', label: 'Blocks' },
-    { value: '~2,200', label: 'Acres (approx.)' },
+    { value: 'Margalla Orchards Walk', label: 'Commercial district' },
   ],
   features: [
     'Block-wise layout',
@@ -137,6 +139,49 @@ export const margallaMasterPlan = {
     { size: '14 Marla', count: '900', pct: '19%' },
     { size: '10 Marla', count: '777', pct: '16%' },
   ],
+};
+
+export const margallaMasterPlanOverview = {
+  eyebrow: 'Master plan',
+  title: 'A vision carefully designed for future generations',
+  intro:
+    'DHA Margalla Orchard spans approximately 8,380 Kanals of thoughtfully planned land in Islamabad\'s Zone-IV. Every element of the master plan has been designed under DHA planning standards, ensuring an organized, sustainable, and future-ready community.',
+  stats: [
+    { label: 'Project area', value: '8,380 Kanals' },
+    { label: 'Residential blocks', value: 'A to H' },
+    { label: 'Residential plots', value: '4,781' },
+    { label: 'Commercial district', value: 'Margalla Orchards Walk' },
+    { label: 'Development standard', value: 'DHA' },
+  ],
+};
+
+export const margallaPlotCategories = {
+  eyebrow: 'Residential plot categories',
+  title: 'Plot sizes at DHA Margalla Orchard',
+  intro:
+    'DHA Margalla Orchard offers multiple residential plot categories to accommodate varying family sizes and investment objectives.',
+  categories: [
+    {
+      size: '10 Marla',
+      dimensionLabel: 'Dimension',
+      dimensions: '32 × 70 Feet',
+      plotSize: '10 Marla',
+      location: 'Islamabad, ICT',
+    },
+    {
+      size: '1 Kanal',
+      dimensionLabel: 'Dimension',
+      dimensions: '50 × 90 Feet',
+      plotSize: '1 Kanal',
+      location: 'Islamabad, ICT',
+    },
+  ],
+  blocks: {
+    eyebrow: 'Total blocks',
+    title: 'Blocks A through H',
+    subtitle: 'Eight residential blocks across the master plan — each with a mix of plot sizes and green belts.',
+    letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'] as const,
+  },
 };
 
 export const margallaAmenities = [

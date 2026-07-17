@@ -79,6 +79,23 @@ export async function submitConciergeLead(payload: Record<string, unknown>): Pro
   });
 }
 
+export async function submitPlotLead(payload: Record<string, unknown>): Promise<SubmitResult> {
+  return postLead(siteConfig.apiPlotLeadPath, {
+    source: 'plot_lead_wizard',
+    ...payload,
+    submittedAt: new Date().toISOString(),
+  });
+}
+
+/** Queue plot lead locally when the API is unreachable (retried later if you add sync). */
+export function queuePlotLead(payload: Record<string, unknown>) {
+  queueOffline(siteConfig.apiPlotLeadPath, {
+    source: 'plot_lead_wizard',
+    ...payload,
+    submittedAt: new Date().toISOString(),
+  });
+}
+
 export async function submitNewsletterEmail(email: string): Promise<SubmitResult> {
   return postLead(siteConfig.apiNewsletterPath, {
     source: 'footer_newsletter',

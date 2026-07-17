@@ -70,16 +70,19 @@ function AnimatedNavLink({
   active,
   onNavigate,
   className = '',
+  inverse = false,
 }: {
   item: NavLinkItem;
   active: boolean;
   onNavigate: (item: NavLinkItem, e: React.MouseEvent) => void;
   className?: string;
+  inverse?: boolean;
 }) {
   const href = navItemHref(item);
-  const idleClass =
-    'text-navy-800 hover:text-gold-600 dark:text-cream/90 dark:hover:text-gold-400';
-  const activeClass = 'text-gold-600 dark:text-gold-400';
+  const idleClass = inverse
+    ? 'text-zinc-400 hover:text-white'
+    : 'text-zinc-600 hover:text-charcoal dark:text-zinc-400 dark:hover:text-white';
+  const activeClass = inverse ? 'text-white' : 'text-charcoal dark:text-white';
 
   return (
     <motion.div variants={navItemMotion} className="shrink-0">
@@ -96,7 +99,7 @@ function AnimatedNavLink({
           {item.label}
         </motion.span>
         <span
-          className={`pointer-events-none absolute -bottom-0.5 left-0 right-0 h-px origin-left bg-gold-500 transition-transform duration-300 ease-out ${active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
+          className={`pointer-events-none absolute -bottom-0.5 left-0 right-0 h-px origin-left bg-white/60 transition-transform duration-300 ease-out ${active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
           aria-hidden
         />
         {active && (
@@ -167,8 +170,9 @@ export function Navbar() {
     [location.pathname, navigate]
   );
 
-  const onHomeTop =
-    (location.pathname === '/' || location.pathname === MARGALLA_PROJECT_PATH) && !isScrolled;
+  const onHeroPage =
+    location.pathname === '/' || location.pathname === MARGALLA_PROJECT_PATH;
+  const transparentNav = onHeroPage && !isScrolled;
 
   const initials = user?.name
     ? user.name
@@ -184,15 +188,19 @@ export function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 left-0 right-0 z-40 pt-[env(safe-area-inset-top,0px)] transition-[background-color,box-shadow] duration-200 ${
-        isScrolled || onHomeTop
-          ? 'border-b border-navy-100/80 bg-white/95 shadow-sm backdrop-blur-md dark:border-navy-700/80 dark:bg-navy-900 dark:shadow-black/20'
-          : 'bg-transparent dark:bg-transparent'
+      className={`fixed top-0 left-0 right-0 z-40 pt-[env(safe-area-inset-top,0px)] transition-[background-color,box-shadow,border-color] duration-300 ${
+        transparentNav
+          ? 'border-b border-transparent bg-transparent'
+          : 'border-b border-white/[0.08] bg-navy-950/80 shadow-sm backdrop-blur-xl dark:border-white/[0.08] dark:bg-navy-950/85'
       }`}
     >
       <div className="max-w-[100rem] mx-auto px-3 sm:px-5 lg:px-6">
         <div className="flex h-16 items-center justify-between gap-2 sm:h-20 sm:gap-3">
-          <BrandMark size="nav" className="min-w-0 shrink" />
+          <BrandMark
+            size="nav"
+            className="min-w-0 shrink"
+            tone={transparentNav ? 'hero' : 'light'}
+          />
 
           <motion.nav
             aria-label="Primary"
@@ -208,6 +216,7 @@ export function Navbar() {
                   item={link}
                   active={isNavItemActive(link, location.pathname, location.hash)}
                   onNavigate={handleNavClick}
+                  inverse={transparentNav}
                 />
               ))}
             </div>
@@ -349,9 +358,9 @@ export function Navbar() {
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
             {isMobileMenuOpen ? (
-              <XIcon className="w-6 h-6 text-navy-900 dark:text-cream" />
+              <XIcon className={`w-6 h-6 ${transparentNav ? 'text-white' : 'text-charcoal dark:text-cream'}`} />
             ) : (
-              <MenuIcon className="w-6 h-6 text-navy-900 dark:text-cream" />
+              <MenuIcon className={`w-6 h-6 ${transparentNav ? 'text-white' : 'text-charcoal dark:text-cream'}`} />
             )}
             </button>
           </div>

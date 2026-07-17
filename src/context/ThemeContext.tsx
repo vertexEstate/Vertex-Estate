@@ -5,11 +5,13 @@ interface ThemeContextType {
 }
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: {children: React.ReactNode;}) {
-  const [isDark, setIsDark] = useState(true); // Default to dark mode
+  const [isDark, setIsDark] = useState(true);
   useEffect(() => {
     const stored = localStorage.getItem('theme');
     if (stored) {
       setIsDark(stored === 'dark');
+    } else {
+      setIsDark(true);
     }
   }, []);
   useEffect(() => {

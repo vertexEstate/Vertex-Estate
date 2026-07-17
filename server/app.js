@@ -17,6 +17,7 @@ import {
   sendWaitlistEmails,
   verifySmtpConnection,
 } from './mail.js';
+import { configureMongoDns, sanitizeMongoError } from './mongoDns.js';
 import { getRobotsTxt } from './robotsTxt.js';
 import { getSitemapXml } from './sitemapXml.js';
 
@@ -24,6 +25,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
 const MONGODB_URI = process.env.MONGODB_URI || '';
+configureMongoDns(MONGODB_URI);
 const MONGODB_DB = process.env.MONGODB_DB || 'vertex';
 const LEADS_COLLECTION = process.env.MONGODB_LEADS_COLLECTION || 'leads';
 const PROPERTIES_COLLECTION = process.env.MONGODB_PROPERTIES_COLLECTION || 'properties';
@@ -33,6 +35,8 @@ const DEFAULT_CORS_ORIGINS = [
   'https://www.vertexestatepvt.com',
   'http://localhost:5173',
   'http://127.0.0.1:5173',
+  'http://localhost:5174',
+  'http://127.0.0.1:5174',
 ];
 
 function buildAllowedCorsOrigins() {
@@ -86,10 +90,15 @@ async function getMongoClient() {
   }
   if (!mongoConnectPromise) {
     mongoConnectPromise = (async () => {
-      mongoClient = new MongoClient(MONGODB_URI, getMongoClientOptions());
-      await mongoClient.connect();
-      await maybeSeedProperties();
-      return mongoClient;
+      try {
+        mongoClient = new MongoClient(MONGODB_URI, getMongoClientOptions());
+        await mongoClient.connect();
+        await maybeSeedProperties();
+        return mongoClient;
+      } catch (e) {
+        mongoConnectPromise = null;
+        throw e;
+      }
     })();
   }
   return mongoConnectPromise;
@@ -233,7 +242,7 @@ app.get('/health', async (_req, res) => {
     console.error('[health]', e);
     return res.status(503).json({
       ok: false,
-      error: e instanceof Error ? e.message : 'MongoDB unavailable',
+      error: sanitizeMongoError(e),
     });
   }
 });
@@ -293,6 +302,40 @@ app.post('/leads/concierge', async (req, res) => {
     console.error('[leads/concierge]', e);
     return res.status(500).json({
       error: e instanceof Error ? e.message : 'Failed to save',
+    });
+  }
+});
+
+app.post('/leads/plot-inquiry', async (req, res) => {
+  try {
+    const b = req.body || {};
+    const firstName = String(b.firstName || '').trim();
+    const lastName = String(b.lastName || '').trim();
+    const phone = String(b.phone || '').trim();
+    if (!firstName || !lastName || !phone) {
+      return res.status(400).json({ error: 'firstName, lastName, and phone are required' });
+    }
+    await insertLead({
+      source: b.source || 'plot_lead_wizard',
+      firstName,
+      lastName,
+      name: `${firstName} ${lastName}`.trim(),
+      phone,
+      projectId: String(b.projectId || ''),
+      city: String(b.city || ''),
+      workType: String(b.workType || ''),
+      plotSize: String(b.plotSize || ''),
+      budget: String(b.budget || ''),
+      purchaseTimeline: String(b.purchaseTimeline || ''),
+      siteVisit: String(b.siteVisit || ''),
+      payload: b,
+      submittedAt: b.submittedAt || new Date().toISOString(),
+    });
+    return res.status(201).json({ ok: true });
+  } catch (e) {
+    console.error('[leads/plot-inquiry]', e);
+    return res.status(500).json({
+      error: sanitizeMongoError(e),
     });
   }
 });

@@ -1,95 +1,103 @@
 
 export default {
-  content: [
-  './index.html',
-  './src/**/*.{js,ts,jsx,tsx}'
-],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        /* Forest / teal neutrals (reference: deep green UI) */
+        /* DiyWeb: pure black → zinc neutrals (legacy `navy`) */
         navy: {
-          50: '#E8F4F2',
-          100: '#C8E4DF',
-          200: '#9EC9C1',
-          300: '#6BA8A1',
-          400: '#3D827C',
-          500: '#1E5F5A',
-          600: '#143D3D',
-          700: '#0F3333',
-          800: '#0A2A2A',
-          900: '#021616',
-          950: '#010a0a',
+          50: '#fafafa',
+          100: '#f4f4f5',
+          200: '#e4e4e7',
+          300: '#d4d4d8',
+          400: '#a1a1aa',
+          500: '#71717a',
+          600: '#52525b',
+          700: '#3f3f46',
+          800: '#27272a',
+          900: '#18181b',
+          950: '#000000',
         },
-        /* Lime accent (reference: #d4ff3f) */
+        /* DiyWeb: white / stone accents only — NO blue (legacy `gold`) */
         gold: {
-          50: '#F9FFEB',
-          100: '#F2FFD6',
-          200: '#E6FFAD',
-          300: '#DEFF85',
-          400: '#E3FF6A',
-          500: '#D4FF3F',
-          600: '#B8E628',
-          700: '#9BC420',
-          800: '#6F8A18',
-          900: '#3D4D0F',
+          50: '#fafafa',
+          100: '#f4f4f5',
+          200: '#eceae4',
+          300: '#ddd8cd',
+          400: '#a1a1aa',
+          500: '#f2f2f2',
+          600: '#d4d4d8',
+          700: '#ada996',
+          800: '#71717a',
+          900: '#52525b',
         },
-        cream: '#EFF5F3',
+        cream: '#f8f8f6',
+        stone: {
+          DEFAULT: '#ada996',
+          50: '#f0ece0',
+          100: '#eceae4',
+          200: '#ddd8cd',
+          300: '#c8c4b4',
+          400: '#ada996',
+          500: '#a8a498',
+          600: '#7a7870',
+        },
+        charcoal: '#18181b',
+        /* Subtle trust green — use sparingly */
+        accent: {
+          green: '#22c55e',
+          'green-soft': 'rgba(34, 197, 94, 0.12)',
+          'green-border': 'rgba(34, 197, 94, 0.35)',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Playfair Display', 'Georgia', 'serif'],
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
       },
       boxShadow: {
-        'gold-glow': '0 0 24px rgba(212, 255, 63, 0.35)',
-        'gold-glow-lg': '0 0 48px rgba(212, 255, 63, 0.45)',
-        glass: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
-        'btn-primary':
-          '0 2px 0 0 rgba(155, 196, 32, 0.45), 0 8px 22px -4px rgba(2, 22, 22, 0.28), 0 0 0 1px rgba(2, 22, 22, 0.06)',
-        'btn-primary-hover':
-          '0 2px 0 0 rgba(155, 196, 32, 0.55), 0 12px 28px -4px rgba(212, 255, 63, 0.45), 0 0 0 1px rgba(2, 22, 22, 0.08)',
-        'btn-secondary':
-          '0 2px 0 0 rgba(0, 0, 0, 0.2), 0 6px 18px -4px rgba(2, 22, 22, 0.35)',
-        'btn-secondary-hover':
-          '0 2px 0 0 rgba(0, 0, 0, 0.15), 0 10px 24px -4px rgba(2, 22, 22, 0.4), 0 0 0 1px rgba(212, 255, 63, 0.2)',
+        'gold-glow': '0 0 24px rgba(255, 255, 255, 0.06)',
+        'gold-glow-lg': '0 0 48px rgba(255, 255, 255, 0.08)',
+        glass: '0 8px 32px 0 rgba(0, 0, 0, 0.5)',
+        'luxury-card': '0 0 0 1px rgba(255, 255, 255, 0.06)',
+        'luxury-card-hover': '0 0 0 1px rgba(255, 255, 255, 0.12)',
+        'btn-primary': 'none',
+        'btn-primary-hover': 'none',
+        'btn-secondary': 'none',
+        'btn-secondary-hover': 'none',
       },
-      backdropBlur: {
-        xs: '2px',
+      backdropBlur: { xs: '2px' },
+      borderRadius: {
+        luxury: '1rem',
+        'luxury-lg': '1.25rem',
+        'luxury-xl': '1.5rem',
       },
       animation: {
         float: 'float 6s ease-in-out infinite',
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'spin-slow': 'spin 48s linear infinite',
-        'gradient-x': 'gradient-x 10s ease infinite',
+        'gradient-x': 'gradient-x 8s ease infinite',
         shimmer: 'shimmer 3.5s ease-in-out infinite',
         'ambient-breathe': 'ambientBreathe 14s ease-in-out infinite',
-        'ambient-breathe-alt': 'ambientBreatheAlt 18s ease-in-out infinite',
-        starfield: 'starfieldDrift 32s linear infinite',
         'hero-burns': 'heroKenBurns 28s ease-in-out infinite alternate',
-        'tagline-marquee': 'taglineMarquee 32s linear infinite',
-        'promo-marquee': 'promoMarquee 28s linear infinite',
+        'fade-up': 'fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards',
       },
       keyframes: {
+        fadeUp: {
+          '0%': { opacity: '0', transform: 'translateY(24px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
         ambientBreathe: {
-          '0%, 100%': { transform: 'translate(0, 0) scale(1)', opacity: '0.35' },
-          '50%': { transform: 'translate(3%, -2%) scale(1.08)', opacity: '0.55' },
-        },
-        ambientBreatheAlt: {
-          '0%, 100%': { transform: 'translate(0, 0) scale(1)', opacity: '0.28' },
-          '50%': { transform: 'translate(-4%, 3%) scale(1.1)', opacity: '0.48' },
-        },
-        starfieldDrift: {
-          '0%': { backgroundPosition: '0% 0%' },
-          '100%': { backgroundPosition: '100% 100%' },
+          '0%, 100%': { opacity: '0.2' },
+          '50%': { opacity: '0.35' },
         },
         heroKenBurns: {
-          '0%': { transform: 'scale(1) translate(0, 0)' },
-          '100%': { transform: 'scale(1.09) translate(-1.2%, -0.8%)' },
+          '0%': { transform: 'scale(1)' },
+          '100%': { transform: 'scale(1.04)' },
         },
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
+          '50%': { transform: 'translateY(-12px)' },
         },
         'gradient-x': {
           '0%, 100%': { backgroundPosition: '0% 50%' },
@@ -97,20 +105,10 @@ export default {
         },
         shimmer: {
           '0%': { transform: 'translateX(-120%) skewX(-12deg)', opacity: '0' },
-          '15%': { opacity: '0.35' },
-          '55%': { opacity: '0.35' },
           '100%': { transform: 'translateX(220%) skewX(-12deg)', opacity: '0' },
-        },
-        taglineMarquee: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
-        },
-        promoMarquee: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
         },
       },
     },
   },
   plugins: [],
-}
+};

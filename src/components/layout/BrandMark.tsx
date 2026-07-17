@@ -6,8 +6,8 @@ type BrandMarkProps = {
   className?: string;
   /** Larger logo in footer */
   size?: 'default' | 'lg' | 'nav';
-  /** Use on dark backgrounds (footer) for readable text */
-  tone?: 'light' | 'dark';
+  /** Use on dark backgrounds (footer, hero nav) for readable text */
+  tone?: 'light' | 'dark' | 'hero';
 };
 
 export function BrandMark({
@@ -20,9 +20,9 @@ export function BrandMark({
   const textSize =
     size === 'lg' || size === 'nav' ? 'text-2xl' : 'text-xl';
   const nameColor =
-    tone === 'dark'
+    tone === 'dark' || tone === 'hero'
       ? 'text-cream'
-      : 'text-navy-900 dark:text-cream';
+      : 'text-charcoal dark:text-cream';
 
   return (
     <Link to="/" className={`flex items-center space-x-2 ${className}`}>

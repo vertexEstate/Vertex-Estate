@@ -96,7 +96,7 @@ export function Stats() {
           transition={{ type: 'spring', stiffness: 400, damping: 22 }}
           className="group relative overflow-hidden rounded-3xl border border-navy-100/90 bg-gradient-to-b from-white to-cream/90 p-5 text-center shadow-lg shadow-black/[0.04] backdrop-blur-sm transition-colors hover:border-gold-500/35 dark:border-navy-600 dark:from-navy-800 dark:to-navy-900/95 dark:hover:border-gold-500/30 sm:p-6"
         >
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(212,255,63,0.1),transparent_58%)] opacity-0 transition duration-500 group-hover:opacity-100" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(201,162,39,0.08),transparent_58%)] opacity-0 transition duration-500 group-hover:opacity-100" />
           <div className="relative mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-500/12 ring-1 ring-gold-500/25 transition group-hover:bg-gold-500/18 group-hover:shadow-md group-hover:shadow-gold-500/20">
             <stat.icon className="h-7 w-7 text-gold-600 dark:text-gold-400" />
           </div>
